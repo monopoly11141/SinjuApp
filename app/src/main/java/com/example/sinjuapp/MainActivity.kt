@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -68,12 +69,11 @@ fun DefaultPreview() {
         ButtonLinks(UrlUtils.LINKS)
     }
 }
-
 @Composable
 fun BtnText(text: String) {
     Text(
         text = text,
-        fontSize = getButtonSize(text).sp,
+        fontSize = getButtonSize(text).nonScaledSp,
         color = Color.Black,
         fontWeight = FontWeight.Bold
     )
@@ -86,3 +86,7 @@ fun getButtonSize(text: String): Int {
         else -> 48
     }
 }
+
+val Int.nonScaledSp
+    @Composable
+    get() = (this / LocalDensity.current.fontScale).sp
